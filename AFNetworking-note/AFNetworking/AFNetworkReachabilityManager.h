@@ -90,11 +90,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Returns the shared network reachability manager.
+ 内部实质上调用的 + (instancetype)sharedManager;
  */
 + (instancetype)sharedManager;
 
 /**
  Creates and returns a network reachability manager with the default socket address.
+ 创建并返回一个有默认socket地址的 reachability manager
  
  @return An initialized network reachability manager, actively monitoring the default socket address.
  */
@@ -102,7 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Creates and returns a network reachability manager for the specified domain.
-
+ 为指定的域创建并返回一个 reachability manager
+ 
  @param domain The domain used to evaluate network reachability.
 
  @return An initialized network reachability manager, actively monitoring the specified domain.
@@ -110,6 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)managerForDomain:(NSString *)domain;
 
 /**
+ 注释写在.m中
  Creates and returns a network reachability manager for the socket address.
 
  @param address The socket address (`sockaddr_in6`) used to evaluate network reachability.
@@ -119,6 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)managerForAddress:(const void *)address;
 
 /**
+ 注释写在.m中
  Initializes an instance of a network reachability manager from the specified reachability object.
 
  @param reachability The reachability object to monitor.
@@ -128,6 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability NS_DESIGNATED_INITIALIZER;
 
 /**
+ 不可用
  *  Initializes an instance of a network reachability manager
  *
  *  @return nil as this method is unavailable
@@ -140,6 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Starts monitoring for changes in network reachability status.
+ 开始监视网络连接的变化
  */
 - (void)startMonitoring;
 

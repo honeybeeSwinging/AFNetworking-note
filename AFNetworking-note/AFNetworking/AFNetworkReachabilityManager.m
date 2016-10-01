@@ -31,6 +31,11 @@
 NSString * const AFNetworkingReachabilityDidChangeNotification = @"com.alamofire.networking.reachability.change";
 NSString * const AFNetworkingReachabilityNotificationStatusItem = @"AFNetworkingReachabilityNotificationStatusItem";
 
+/**
+ 定义了一个AFNetworkReachabilityStatusBlock
+ 无返回值
+ @param status 网络连接状态
+ */
 typedef void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus status);
 
 NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status) {
@@ -106,8 +111,19 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 }
 
 @interface AFNetworkReachabilityManager ()
+
+/**
+ SCNetworkReachabilityRef
+ */
 @property (readonly, nonatomic, assign) SCNetworkReachabilityRef networkReachability;
+/**
+ 网络连接状态
+ */
 @property (readwrite, nonatomic, assign) AFNetworkReachabilityStatus networkReachabilityStatus;
+
+/**
+ AFNetworkReachabilityStatusBlock类型的block
+ */
 @property (readwrite, nonatomic, copy) AFNetworkReachabilityStatusBlock networkReachabilityStatusBlock;
 @end
 
@@ -115,15 +131,24 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 
 + (instancetype)sharedManager {
 
-    
+    // 单例创建 AFNetworkReachabilityManager
     static AFNetworkReachabilityManager *_sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        // 这段代码只会执行一次
         _sharedManager = [self manager];
     });
 
     return _sharedManager;
 }
+
+/**
+ 为一个 domain 初始化一个AFNetworkReachabilityManager
+ 
+ @param domain 域名
+ 
+ @return 初始化过的 manager
+ */
 
 + (instancetype)managerForDomain:(NSString *)domain {
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, [domain UTF8String]);
@@ -135,6 +160,13 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     return manager;
 }
 
+/**
+ 为一个 sockaddr_in 初始化一个AFNetworkReachabilityManager
+
+ @param address sockaddr_in
+
+ @return 初始化过的 manager
+ */
 + (instancetype)managerForAddress:(const void *)address {
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)address);
     AFNetworkReachabilityManager *manager = [[self alloc] initWithReachability:reachability];
@@ -144,10 +176,18 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     return manager;
 }
 
+/**
+ 为一个 sockaddr_in 初始化一个AFNetworkReachabilityManager
+
+ @return 初始化过的 manager
+ */
 + (instancetype)manager
 {
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
+    // 声明一个结构体 作为 + (instancetype)managerForAddress:(const void *)address 这个方法的参数
     struct sockaddr_in6 address;
+    // 置字节字符串s的前n个字节为零且包括‘\0’
+    // 此处调用这个函数 将 sockaddr_in6 这个结构体 全部置零！
     bzero(&address, sizeof(address));
     address.sin6_len = sizeof(address);
     address.sin6_family = AF_INET6;
@@ -160,13 +200,19 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     return [self managerForAddress:&address];
 }
 
+/**
+ 通过 SCNetworkReachabilityRef 初始化 AFNetworkReachabilityManager
+ 为AFNetworkReachabilityManager.networkReachabilityStatus
+  AFNetworkReachabilityManager.networkReachability 赋值
+ */
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability {
     self = [super init];
     if (!self) {
         return nil;
     }
-
+    // 初始化的manager的 _networkReachability 设置为 CFRetain(reachability)
     _networkReachability = CFRetain(reachability);
+    // manager类初始化时 AFNetworkReachabilityStatus 设置为 AFNetworkReachabilityStatusUnknown
     self.networkReachabilityStatus = AFNetworkReachabilityStatusUnknown;
 
     return self;
@@ -201,10 +247,14 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 
 #pragma mark -
 
+/**
+ 开始监视网络连接的变化
+ */
 - (void)startMonitoring {
     [self stopMonitoring];
 
     if (!self.networkReachability) {
+        // 如果 self.networkReachability 没有赋值 则return
         return;
     }
 
