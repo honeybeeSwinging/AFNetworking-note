@@ -268,7 +268,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
         }
 
     };
-
+    // 创建 SCNetworkReachability 上下文
     SCNetworkReachabilityContext context = {0, (__bridge void *)callback, AFNetworkReachabilityRetainCallback, AFNetworkReachabilityReleaseCallback, NULL};
     
     SCNetworkReachabilitySetCallback(self.networkReachability, AFNetworkReachabilityCallback, &context);
