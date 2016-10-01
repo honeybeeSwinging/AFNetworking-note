@@ -19,6 +19,9 @@
 		9F99CA581D9FA76900649278 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA501D9FA76900649278 /* AFURLRequestSerialization.m */; };
 		9F99CA591D9FA76900649278 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA521D9FA76900649278 /* AFURLResponseSerialization.m */; };
 		9F99CA5A1D9FA76900649278 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA541D9FA76900649278 /* AFURLSessionManager.m */; };
+		9F99CA621D9FA84800649278 /* NetWorkingConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA5D1D9FA84800649278 /* NetWorkingConst.m */; };
+		9F99CA631D9FA84800649278 /* NetWorkingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA5F1D9FA84800649278 /* NetWorkingHelper.m */; };
+		9F99CA641D9FA84800649278 /* UploadParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F99CA611D9FA84800649278 /* UploadParam.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,12 @@
 		9F99CA521D9FA76900649278 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		9F99CA531D9FA76900649278 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		9F99CA541D9FA76900649278 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		9F99CA5C1D9FA84800649278 /* NetWorkingConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkingConst.h; sourceTree = "<group>"; };
+		9F99CA5D1D9FA84800649278 /* NetWorkingConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkingConst.m; sourceTree = "<group>"; };
+		9F99CA5E1D9FA84800649278 /* NetWorkingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkingHelper.h; sourceTree = "<group>"; };
+		9F99CA5F1D9FA84800649278 /* NetWorkingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkingHelper.m; sourceTree = "<group>"; };
+		9F99CA601D9FA84800649278 /* UploadParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadParam.h; sourceTree = "<group>"; };
+		9F99CA611D9FA84800649278 /* UploadParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadParam.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +70,7 @@
 		9F99CA241D9FA75100649278 = {
 			isa = PBXGroup;
 			children = (
+				9F99CA5B1D9FA84800649278 /* CJSNetWorkHelper */,
 				9F99CA471D9FA76900649278 /* AFNetworking */,
 				9F99CA2F1D9FA75100649278 /* AFNetworking-note */,
 				9F99CA2E1D9FA75100649278 /* Products */,
@@ -117,6 +127,19 @@
 				9F99CA541D9FA76900649278 /* AFURLSessionManager.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		9F99CA5B1D9FA84800649278 /* CJSNetWorkHelper */ = {
+			isa = PBXGroup;
+			children = (
+				9F99CA5C1D9FA84800649278 /* NetWorkingConst.h */,
+				9F99CA5D1D9FA84800649278 /* NetWorkingConst.m */,
+				9F99CA5E1D9FA84800649278 /* NetWorkingHelper.h */,
+				9F99CA5F1D9FA84800649278 /* NetWorkingHelper.m */,
+				9F99CA601D9FA84800649278 /* UploadParam.h */,
+				9F99CA611D9FA84800649278 /* UploadParam.m */,
+			);
+			path = CJSNetWorkHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,9 +217,12 @@
 				9F99CA381D9FA75100649278 /* ViewController.m in Sources */,
 				9F99CA351D9FA75100649278 /* AppDelegate.m in Sources */,
 				9F99CA561D9FA76900649278 /* AFNetworkReachabilityManager.m in Sources */,
+				9F99CA631D9FA84800649278 /* NetWorkingHelper.m in Sources */,
 				9F99CA321D9FA75100649278 /* main.m in Sources */,
+				9F99CA641D9FA84800649278 /* UploadParam.m in Sources */,
 				9F99CA571D9FA76900649278 /* AFSecurityPolicy.m in Sources */,
 				9F99CA581D9FA76900649278 /* AFURLRequestSerialization.m in Sources */,
+				9F99CA621D9FA84800649278 /* NetWorkingConst.m in Sources */,
 				9F99CA591D9FA76900649278 /* AFURLResponseSerialization.m in Sources */,
 				9F99CA551D9FA76900649278 /* AFHTTPSessionManager.m in Sources */,
 			);
@@ -355,6 +381,7 @@
 				9F99CA461D9FA75100649278 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

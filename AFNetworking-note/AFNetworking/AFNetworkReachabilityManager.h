@@ -24,7 +24,17 @@
 #if !TARGET_OS_WATCH
 #import <SystemConfiguration/SystemConfiguration.h>
 
+
+/**
+ 网络连接状态 枚举
+
+ - AFNetworkReachabilityStatusUnknown:          未知
+ - AFNetworkReachabilityStatusNotReachable:     位连接
+ - AFNetworkReachabilityStatusReachableViaWWAN: WWAN
+ - AFNetworkReachabilityStatusReachableViaWiFi: WiFi
+ */
 typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
+    
     AFNetworkReachabilityStatusUnknown          = -1,
     AFNetworkReachabilityStatusNotReachable     = 0,
     AFNetworkReachabilityStatusReachableViaWWAN = 1,
@@ -35,32 +45,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  `AFNetworkReachabilityManager` monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.
-
+ 
+ `AFNetworkReachabilityManager` 监视着WWAN和WiFi网络接口的连接状态和地址
+ 
  Reachability can be used to determine background information about why a network operation failed, or to trigger a network operation retrying when a connection is established. It should not be used to prevent a user from initiating a network request, as it's possible that an initial request may be required to establish reachability.
 
  See Apple's Reachability Sample Code ( https://developer.apple.com/library/ios/samplecode/reachability/ )
 
  @warning Instances of `AFNetworkReachabilityManager` must be started with `-startMonitoring` before reachability status can be determined.
  */
+
+/**
+ 网络连接状态Manager
+ */
 @interface AFNetworkReachabilityManager : NSObject
 
 /**
  The current network reachability status.
+ 当前网络的连接状态
  */
 @property (readonly, nonatomic, assign) AFNetworkReachabilityStatus networkReachabilityStatus;
 
 /**
  Whether or not the network is currently reachable.
+ 是否可连接
  */
 @property (readonly, nonatomic, assign, getter = isReachable) BOOL reachable;
 
 /**
  Whether or not the network is currently reachable via WWAN.
+ 是否连接的是WWAN
  */
 @property (readonly, nonatomic, assign, getter = isReachableViaWWAN) BOOL reachableViaWWAN;
 
 /**
  Whether or not the network is currently reachable via WiFi.
+ 是否连接的是WiFi
  */
 @property (readonly, nonatomic, assign, getter = isReachableViaWiFi) BOOL reachableViaWiFi;
 

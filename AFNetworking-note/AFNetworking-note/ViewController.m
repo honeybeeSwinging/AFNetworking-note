@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NetWorkingHelper.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [NetWorkingHelper postWithURLString:@"" parameters:nil success:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 
