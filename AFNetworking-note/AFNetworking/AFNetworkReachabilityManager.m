@@ -186,8 +186,8 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
     // 声明一个结构体 作为 + (instancetype)managerForAddress:(const void *)address 这个方法的参数
     struct sockaddr_in6 address;
-    // 置字节字符串s的前n个字节为零且包括‘\0’
-    // 此处调用这个函数 将 sockaddr_in6 这个结构体 全部置零！
+    // bzero置字节字符串s的前n个字节为零且包括‘\0’
+    // 此处调用 bzero 函数 将 sockaddr_in6 这个结构体 全部置零！
     bzero(&address, sizeof(address));
     address.sin6_len = sizeof(address);
     address.sin6_family = AF_INET6;
