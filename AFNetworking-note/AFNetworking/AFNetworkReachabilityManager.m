@@ -38,6 +38,13 @@ NSString * const AFNetworkingReachabilityNotificationStatusItem = @"AFNetworking
  */
 typedef void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus status);
 
+/**
+ 网络状态字段
+
+ @param status 网络连接状态枚举
+
+ @return 网络连接状态字段
+ */
 NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status) {
     switch (status) {
         case AFNetworkReachabilityStatusNotReachable:
@@ -232,15 +239,25 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 }
 
 #pragma mark -
-
+/**
+ 判断是否连接网络
+ 
+ */
 - (BOOL)isReachable {
     return [self isReachableViaWWAN] || [self isReachableViaWiFi];
 }
 
+/**
+ 判断是否连接WWAN
+
+ */
 - (BOOL)isReachableViaWWAN {
     return self.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN;
 }
-
+/**
+ 判断是否连接WiFi
+ 
+ */
 - (BOOL)isReachableViaWiFi {
     return self.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi;
 }
@@ -270,29 +287,11 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     };
     
     // 创建 SCNetworkReachability 上下文
-    /*!
-     @typedef SCNetworkReachabilityContext
-     
-     Structure containing user-specified data and callbacks for SCNetworkReachability.
-     @field version The version number of the structure type being passed
-     in as a parameter to the SCDynamicStore creation function.
-     This structure is version 0.
-     @field info A C pointer to a user-specified block of data.
-     @field retain The callback used to add a retain for the info field.
-     If this parameter is not a pointer to a function of the correct
-     prototype, the behavior is undefined.  The value may be NULL.
-     @field release The calllback used to remove a retain previously added
-     for the info field.  If this parameter is not a pointer to a
-     function of the correct prototype, the behavior is undefined.
-     The value may be NULL.
-     @field copyDescription The callback used to provide a description of
-     the info field.
-     */
     SCNetworkReachabilityContext context = {0, (__bridge void *)callback, AFNetworkReachabilityRetainCallback, AFNetworkReachabilityReleaseCallback, NULL};
-    
+    // 设置回调
     SCNetworkReachabilitySetCallback(self.networkReachability, AFNetworkReachabilityCallback, &context);
+    // 加入Runloop
     SCNetworkReachabilityScheduleWithRunLoop(self.networkReachability, CFRunLoopGetMain(), kCFRunLoopCommonModes);
-
     // 异步执行全局并发队列
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
         SCNetworkReachabilityFlags flags;
@@ -306,18 +305,28 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     if (!self.networkReachability) {
         return;
     }
-
+    // 从 Runloop 中移除
     SCNetworkReachabilityUnscheduleFromRunLoop(self.networkReachability, CFRunLoopGetMain(), kCFRunLoopCommonModes);
 }
 
 #pragma mark -
 
+/**
+ 本地化网络状态
+
+ @return <#return value description#>
+ */
 - (NSString *)localizedNetworkReachabilityStatusString {
     return AFStringFromNetworkReachabilityStatus(self.networkReachabilityStatus);
 }
 
 #pragma mark -
 
+/**
+ 设置网络状态变化是执行的block
+
+ @param block 要执行的block
+ */
 - (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block {
     self.networkReachabilityStatusBlock = block;
 }

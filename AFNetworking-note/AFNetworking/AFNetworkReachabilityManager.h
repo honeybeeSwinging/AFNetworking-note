@@ -152,6 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Stops monitoring for changes in network reachability status.
+ 停止监视网络连接的变化
  */
 - (void)stopMonitoring;
 
@@ -170,7 +171,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Sets a callback to be executed when the network availability of the `baseURL` host changes.
-
+ 注释写在.m中
  @param block A block object to be executed when the network availability of the `baseURL` host changes.. This block has no return value and takes a single argument which represents the various reachability states from the device to the `baseURL`.
  */
 - (void)setReachabilityStatusChangeBlock:(nullable void (^)(AFNetworkReachabilityStatus status))block;
