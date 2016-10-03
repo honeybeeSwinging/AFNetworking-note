@@ -268,7 +268,26 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
         }
 
     };
+    
     // 创建 SCNetworkReachability 上下文
+    /*!
+     @typedef SCNetworkReachabilityContext
+     
+     Structure containing user-specified data and callbacks for SCNetworkReachability.
+     @field version The version number of the structure type being passed
+     in as a parameter to the SCDynamicStore creation function.
+     This structure is version 0.
+     @field info A C pointer to a user-specified block of data.
+     @field retain The callback used to add a retain for the info field.
+     If this parameter is not a pointer to a function of the correct
+     prototype, the behavior is undefined.  The value may be NULL.
+     @field release The calllback used to remove a retain previously added
+     for the info field.  If this parameter is not a pointer to a
+     function of the correct prototype, the behavior is undefined.
+     The value may be NULL.
+     @field copyDescription The callback used to provide a description of
+     the info field.
+     */
     SCNetworkReachabilityContext context = {0, (__bridge void *)callback, AFNetworkReachabilityRetainCallback, AFNetworkReachabilityReleaseCallback, NULL};
     
     SCNetworkReachabilitySetCallback(self.networkReachability, AFNetworkReachabilityCallback, &context);
