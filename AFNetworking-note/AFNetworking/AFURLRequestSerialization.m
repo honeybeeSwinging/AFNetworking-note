@@ -360,11 +360,14 @@ forHTTPHeaderField:(NSString *)field
     NSParameterAssert(method);
     NSParameterAssert(URLString);
 
+    // 创建请求URL
     NSURL *url = [NSURL URLWithString:URLString];
 
     NSParameterAssert(url);
 
+    // 创建请求
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url];
+    // 设置请求方式
     mutableRequest.HTTPMethod = method;
 
     for (NSString *keyPath in AFHTTPRequestSerializerObservedKeyPaths()) {

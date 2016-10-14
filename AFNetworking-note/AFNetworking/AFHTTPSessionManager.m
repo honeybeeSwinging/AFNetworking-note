@@ -47,6 +47,10 @@
 @implementation AFHTTPSessionManager
 @dynamic responseSerializer;
 
+
+/**
+ 类方法 初始化manager
+ */
 + (instancetype)manager {
     return [[[self class] alloc] initWithBaseURL:nil];
 }
@@ -153,16 +157,29 @@
     return [self POST:URLString parameters:parameters progress:nil success:success failure:failure];
 }
 
+
+/**
+ post 请求
+
+ @param URLString      请求地址
+ @param parameters     参数
+ @param uploadProgress 进程
+ @param success        成功的block
+ @param failure        失败的block
+
+ @return NSURLSessionDataTask
+ */
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
                       progress:(void (^)(NSProgress * _Nonnull))uploadProgress
                        success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
                        failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 {
+    // 创建 NSURLSessionDataTask
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST" URLString:URLString parameters:parameters uploadProgress:uploadProgress downloadProgress:nil success:success failure:failure];
-
+    // 任务启动
     [dataTask resume];
-
+    // 返回任务
     return dataTask;
 }
 
@@ -247,6 +264,19 @@
     return dataTask;
 }
 
+/**
+ 创建各种task的方法
+
+ @param method           方法描述（POST/GET/DELETE...）
+ @param URLString        请求地址
+ @param parameters       请求参数
+ @param uploadProgress   上传进度回调
+ @param downloadProgress 下载进度回调
+ @param success          成功回调
+ @param failure          失败回调
+
+ @return NSURLSessionDataTask 创建好的TASK
+ */
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters

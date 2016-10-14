@@ -117,6 +117,7 @@
             manager.responseSerializer = [AFHTTPResponseSerializer serializer];
             manager.requestSerializer.timeoutInterval = 5;
             manager.operationQueue.maxConcurrentOperationCount = 5;
+            
             [manager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

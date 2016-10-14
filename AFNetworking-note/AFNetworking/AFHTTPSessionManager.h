@@ -36,7 +36,7 @@
 /**
  `AFHTTPSessionManager` is a subclass of `AFURLSessionManager` with convenience methods for making HTTP requests. When a `baseURL` is provided, requests made with the `GET` / `POST` / et al. convenience methods can be made with relative paths.
 
- `AFHTTPSessionManager` 是 `AFURLSessionManager` 拥有 便利方法来进行 Http 请求的子类
+ `AFHTTPSessionManager` 是 `AFURLSessionManager` 的子类，它拥有便利方法来进行 Http 请求，当提供了基地址时，可以创建Get／Post 等请求 ，便利请求的方法可以用相对路径来创建
  
  ## Subclassing Notes
 
@@ -195,6 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
                        failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure DEPRECATED_ATTRIBUTE;
 
 /**
+ 见.m
  Creates and runs an `NSURLSessionDataTask` with a `POST` request.
 
  @param URLString The URL string used to create the request URL.
