@@ -18,7 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [NetWorkingHelper postWithURLString:@"" parameters:nil success:^(id responseObject) {
+    [NetWorkingHelper postWithURLString:@"" parameters:nil showHudBlock:^{
+        
+    } warningHudBlock:^(NSString *warning) {
+        
+        NSLog(@"%@",warning);
+        
+    } hidenHudBlock:^{
+        
+    } success:^(id responseObject) {
         
     } failure:^(NSError *error) {
         

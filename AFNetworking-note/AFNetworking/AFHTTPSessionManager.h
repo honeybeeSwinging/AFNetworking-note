@@ -79,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  The URL used to construct requests from relative paths in methods like `requestWithMethod:URLString:parameters:`, and the `GET` / `POST` / et al. convenience methods.
+ 
  */
 @property (readonly, nonatomic, strong, nullable) NSURL *baseURL;
 

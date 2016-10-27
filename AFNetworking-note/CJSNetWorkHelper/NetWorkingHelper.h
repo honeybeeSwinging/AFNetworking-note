@@ -13,6 +13,7 @@
 
 @interface NetWorkingHelper : NSObject
 
+
 /**
  *  拼接参数
  *
@@ -21,46 +22,63 @@
  */
 + (NSString *)makeURLString:(NSString *)String;
 
-/**
- *  发送get请求
- *
- *  @param URLString  请求的网址字符串
- *  @param parameters 请求的参数
- *  @param success    请求成功的回调
- *  @param failure    请求失败的回调
- */
-+ (void)getWithURLString:(NSString *)URLString
-              parameters:(id)parameters
-                 success:(void (^)(id responseObject))success
-                 failure:(void (^)(NSError * error))failure;
 
 /**
- *  发送post请求
- *
- *  @param URLString  请求的网址字符串
- *  @param parameters 请求的参数
- *  @param success    请求成功的回调
- *  @param failure    请求失败的回调
+ post 请求
+
+ @param URLString       请求地址
+ @param parameters      请求参数
+ @param showHudBlock    添加HUD的block(不需要可传 nil)
+ @param warningHudBlock 展示提示信息HUD的block(不需要可传 nil)
+ @param hidenHudBlock   移除HUD的block(不需要可传 nil)
+ @param success         成功回调
+ @param failure         失败回调
  */
 + (void)postWithURLString:(NSString *)URLString
                parameters:(id)parameters
+             showHudBlock:(void (^)(void))showHudBlock
+          warningHudBlock:(void (^)(NSString *warning))warningHudBlock
+            hidenHudBlock:(void (^)(void))hidenHudBlock
                   success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError * error))failure;
+                  failure:(void (^)(NSError *error))failure;
+/**
+ get 请求
+ 
+ @param URLString       请求地址
+ @param parameters      请求参数
+ @param showHudBlock    添加HUD的block(不需要可传 nil)
+ @param warningHudBlock 展示提示信息HUD的block(不需要可传 nil)
+ @param hidenHudBlock   移除HUD的block(不需要可传 nil)
+ @param success         成功回调
+ @param failure         失败回调
+ */
++ (void)getWithURLString:(NSString *)URLString
+              parameters:(id)parameters
+            showHudBlock:(void (^)(void))showHudBlock
+         warningHudBlock:(void (^)(NSString *warning))warningHudBlock
+           hidenHudBlock:(void (^)(void))hidenHudBlock
+                 success:(void (^)(id responseObject))success
+                 failure:(void (^)(NSError *error))failure;
 
 
 /**
- *  上传图片
- *
- *  @param URLString   上传图片的网址字符串
- *  @param parameters  上传图片的参数
- *  @param uploadParam 上传图片的信息
- *  @param success     上传成功的回调
- *  @param failure     上传失败的回调
+ 上传图片
+
+ @param URLString       请求地址
+ @param parameters      请求参数
+ @param uploadParam     图片参数
+ @param showHudBlock    添加HUD的block(不需要可传 nil)
+ @param warningHudBlock 展示提示信息HUD的block(不需要可传 nil)
+ @param hidenHudBlock   移除HUD的block(不需要可传 nil)
+ @param success         成功回调
+ @param failure         失败回调
  */
 + (void)uploadWithURLString:(NSString *)URLString
                  parameters:(id)parameters
                 uploadParam:(UploadParam *)uploadParam
+               showHudBlock:(void (^)(void))showHudBlock
+            warningHudBlock:(void (^)(NSString *warning))warningHudBlock
+              hidenHudBlock:(void (^)(void))hidenHudBlock
                     success:(void (^)(id responseObject))success
                     failure:(void (^)(NSError * error))failure;
-
 @end
