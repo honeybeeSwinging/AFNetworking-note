@@ -48,6 +48,13 @@ FOUNDATION_EXPORT NSString * AFPercentEscapedStringFromString(NSString *string);
 
 /**
  A helper method to generate encoded url query parameters for appending to the end of a URL.
+ 
+ 该方法最终把类型为 NSDictionary 的参数处理为字符串类型
+ 
+ e.g.
+                                                转化成
+ NSDictionary *params = @{@"name":@"xiaoming",  =====> name=xiaoming&age=20
+                          @"age":@"20"}
 
  @param parameters A dictionary of key/values to be encoded.
 
@@ -137,7 +144,10 @@ typedef NS_ENUM(NSUInteger, AFHTTPRequestQueryStringSerializationStyle) {
 
 /**
  The timeout interval, in seconds, for created requests. The default timeout interval is 60 seconds.
-
+ 
+ 请求超时时间间隔
+ typedef double NSTimeInterval; 可以看出 NSTimeInterval 其实就是一个 double
+ 
  @see NSMutableURLRequest -setTimeoutInterval:
  */
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;

@@ -18,6 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDictionary *params = @{@"name":@"xiaoming",
+                             @"age":@"20"};
+    
     [NetWorkingHelper postWithURLString:@"" parameters:nil showHudBlock:^{
         
     } warningHudBlock:^(NSString *warning) {

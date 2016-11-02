@@ -117,6 +117,7 @@ FOUNDATION_EXPORT NSArray * AFQueryStringPairsFromDictionary(NSDictionary *dicti
 FOUNDATION_EXPORT NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value);
 
 NSString * AFQueryStringFromParameters(NSDictionary *parameters) {
+    // 创建一个 NSMutableArray
     NSMutableArray *mutablePairs = [NSMutableArray array];
     for (AFQueryStringPair *pair in AFQueryStringPairsFromDictionary(parameters)) {
         [mutablePairs addObject:[pair URLEncodedStringValue]];

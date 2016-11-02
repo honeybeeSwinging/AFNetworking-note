@@ -36,10 +36,10 @@
     [self checkNetStatusAndDoNetWork:^{
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        // 可以接受的类型
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         // 请求超时时间
         manager.requestSerializer.timeoutInterval = 5;
+        // 可以接受的类型
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         // 请求队列的最大并发数
         manager.operationQueue.maxConcurrentOperationCount = 5;
         [manager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
