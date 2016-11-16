@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  The `AFURLResponseSerialization` protocol is adopted by an object that decodes data into a more useful object representation, according to details in the server response. Response serializers may additionally perform validation on the incoming response and data.
 
  For example, a JSON response serializer may check for an acceptable status code (`2XX` range) and content type (`application/json`), decoding a valid JSON response into an object.
+ 
  */
 @protocol AFURLResponseSerialization <NSObject, NSSecureCoding, NSCopying>
 
@@ -39,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param error The error that occurred while attempting to decode the response data.
 
  @return The object decoded from the specified response data.
+ 
  */
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                            data:(nullable NSData *)data
@@ -52,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
  `AFHTTPResponseSerializer` conforms to the `AFURLRequestSerialization` & `AFURLResponseSerialization` protocols, offering a concrete base implementation of query string / URL form-encoded parameter serialization and default request headers, as well as response status code and content type validation.
 
  Any request or response serializer dealing with HTTP is encouraged to subclass `AFHTTPResponseSerializer` in order to ensure consistent default behavior.
+ 
+ AFURLResponseSerialization 中最基本的类
  */
 @interface AFHTTPResponseSerializer : NSObject <AFURLResponseSerialization>
 
@@ -59,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  The string encoding used to serialize data received from the server, when no string encoding is specified by the response. `NSUTF8StringEncoding` by default.
+ 
+ 用来序列化从服务器返回数据的格式，当没有指定格式的时候，NSUTF8StringEncoding 为默认格式
  */
 @property (nonatomic, assign) NSStringEncoding stringEncoding;
 
@@ -75,24 +81,43 @@ NS_ASSUME_NONNULL_BEGIN
  The acceptable HTTP status codes for responses. When non-`nil`, responses with status codes not contained by the set will result in an error during validation.
 
  See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+ 
+ 可接受 http 响应类型状态码，当不为 nil 的时候（没看懂这个英文语法，姑且这么翻译），在确认期间，responses 的 status code 如果没有包含在这个集合里将会把一个 error 当作结果
+ 
  */
 @property (nonatomic, copy, nullable) NSIndexSet *acceptableStatusCodes;
 
 /**
  The acceptable MIME types for responses. When non-`nil`, responses with a `Content-Type` with MIME types that do not intersect with the set will result in an error during validation.
+ 
+ 
+ 可接受的 responses 类型，当不为 nil 的时候，在确认期间，responses 的 MIME types 如果没有在这个集合里，将返回一个 error
+ 
+ MIME 类型
+ MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。
+ MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。
+ 
  */
 @property (nonatomic, copy, nullable) NSSet <NSString *> *acceptableContentTypes;
 
 /**
  Validates the specified response and data.
 
+ 验证指定的 resopnse 和 data
+ 
  In its base implementation, this method checks for an acceptable status code and content type. Subclasses may wish to add other domain-specific checks.
 
+ 在他的基础实现里，这个方法检查 acceptable status 和 content type，子类也许期望添加其他的指定领域的检查
+ 
  @param response The response to be validated.
+ 要检查的 response
  @param data The data associated with the response.
+ 关联到 associated 的 response
  @param error The error that occurred while attempting to validate the response.
+ 当尝试去确认 response 时发生的 error
 
  @return `YES` if the response is valid, otherwise `NO`.
+ 如果 response 是有效的返回 YES，否则返回 NO
  */
 - (BOOL)validateResponse:(nullable NSHTTPURLResponse *)response
                     data:(nullable NSData *)data

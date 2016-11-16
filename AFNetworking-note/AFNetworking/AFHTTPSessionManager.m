@@ -175,6 +175,21 @@
                        success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
                        failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 {
+    
+    /*
+     调用下面方法，创建 NSURLSessionDataTask *dataTask，启动 dataTask 并返回 dataTask
+     
+     - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
+                                            URLString:(NSString *)URLString
+                                           parameters:(id)parameters
+                                       uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
+                                     downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
+                                              success:(void (^)(NSURLSessionDataTask *, id))success
+                                              failure:(void (^)(NSURLSessionDataTask *, NSError *))failure;
+
+     */
+    
+    
     // 创建 NSURLSessionDataTask
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST" URLString:URLString parameters:parameters uploadProgress:uploadProgress downloadProgress:nil success:success failure:failure];
     // 任务启动
@@ -285,7 +300,9 @@
                                          success:(void (^)(NSURLSessionDataTask *, id))success
                                          failure:(void (^)(NSURLSessionDataTask *, NSError *))failure
 {
+    // 序列化错误
     NSError *serializationError = nil;
+    // 创建 resquest
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
     if (serializationError) {
         if (failure) {
@@ -297,6 +314,7 @@
         return nil;
     }
 
+    
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self dataTaskWithRequest:request
                           uploadProgress:uploadProgress

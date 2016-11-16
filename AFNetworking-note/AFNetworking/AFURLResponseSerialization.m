@@ -97,9 +97,11 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
         return nil;
     }
 
+    // 编码格式，默认 utf-8
     self.stringEncoding = NSUTF8StringEncoding;
-
+    // 设置可接受状态码
     self.acceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
+    // 没有对接受的内容类型进行限制
     self.acceptableContentTypes = nil;
 
     return self;

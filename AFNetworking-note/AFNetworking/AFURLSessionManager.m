@@ -29,12 +29,16 @@
 #endif
 
 static dispatch_queue_t url_session_manager_creation_queue() {
+    // 声明 af_url_session_manager_creation_queue
     static dispatch_queue_t af_url_session_manager_creation_queue;
     static dispatch_once_t onceToken;
+    // 单例模式，创建一个 af_url_session_manager_creation_queue
     dispatch_once(&onceToken, ^{
-        af_url_session_manager_creation_queue = dispatch_queue_create("com.alamofire.networking.session.manager.creation", DISPATCH_QUEUE_SERIAL);
+        // 创建一个串行队列
+        af_url_session_manager_creation_queue =
+        dispatch_queue_create("com.alamofire.networking.session.manager.creation", DISPATCH_QUEUE_SERIAL);
     });
-
+    // 返回串行队列
     return af_url_session_manager_creation_queue;
 }
 
@@ -757,6 +761,7 @@ static NSString * const AFNSURLSessionTaskDidSuspendNotification = @"com.alamofi
         dataTask = [self.session dataTaskWithRequest:request];
     });
 
+    // 为 DataTask 添加代理
     [self addDelegateForDataTask:dataTask uploadProgress:uploadProgressBlock downloadProgress:downloadProgressBlock completionHandler:completionHandler];
 
     return dataTask;
