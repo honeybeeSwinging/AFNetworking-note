@@ -368,7 +368,7 @@ forHTTPHeaderField:(NSString *)field
 
     // 创建请求
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-    // 设置请求方式
+    // 设置请求方式 POST／GET
     mutableRequest.HTTPMethod = method;
 
     for (NSString *keyPath in AFHTTPRequestSerializerObservedKeyPaths()) {
